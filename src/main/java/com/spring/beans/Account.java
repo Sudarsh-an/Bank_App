@@ -6,29 +6,27 @@ public class Account {
 
 	private int account_id;
 
-	private String name;
+	private String account_type;
 
-	private int contact;
-	
-	private String email;
-	
+	private int client_id;
+		
 	private int balance;
-	
-	private Date date;
 
-	public Account(int account_id, String name, int contact, String email, int balance, Date date) {
+	public Account(int account_id, String account_type, int client_id, int balance) {
 		super();
 		this.account_id = account_id;
-		this.name = name;
-		this.contact = contact;
-		this.email = email;
+		this.account_type = account_type;
+		this.client_id = client_id;
 		this.balance = balance;
-		this.date = date;
 	}
+	
+	
 
 	public Account() {
 		super();
 	}
+
+
 
 	public int getAccount_id() {
 		return account_id;
@@ -38,28 +36,20 @@ public class Account {
 		this.account_id = account_id;
 	}
 
-	public String getName() {
-		return name;
+	public String getAccount_type() {
+		return account_type;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setAccount_type(String account_type) {
+		this.account_type = account_type;
 	}
 
-	public int getContact() {
-		return contact;
+	public int getClient_id() {
+		return client_id;
 	}
 
-	public void setContact(int contact) {
-		this.contact = contact;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setClient_id(int client_id) {
+		this.client_id = client_id;
 	}
 
 	public int getBalance() {
@@ -70,19 +60,11 @@ public class Account {
 		this.balance = balance;
 	}
 
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
 	@Override
 	public String toString() {
-		return "Account [account_id=" + account_id + ", name=" + name + ", contact=" + contact + ", email=" + email
-				+ ", balance=" + balance + ", date=" + date + "]";
+		return "Account [account_id=" + account_id + ", account_type=" + account_type + ", client_id=" + client_id
+				+ ", balance=" + balance + "]";
 	}
-
+	
 	
 }

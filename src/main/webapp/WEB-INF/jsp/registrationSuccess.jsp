@@ -3,5 +3,7 @@
 
  <h1>Hii ${name}, Registration Successful</h1>
     <p>${message}</p>
+  <br/>
+    ${model} 
     
  <a href="loginForm">Click here to login</a>

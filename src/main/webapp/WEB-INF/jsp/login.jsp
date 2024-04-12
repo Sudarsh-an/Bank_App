@@ -3,10 +3,13 @@
 
      <h1>Login</h1>  
 
-     <form:form method="post" action="validUser" modelAttribute="login">
-     	<div th:if="${error}" th:text="${error}" style="color: red;"></div>
-        <label for="account_id">Account-Id:</label>
-        <input type="text" id="account_id" name="account_id" />
+     <form:form method="post" action="validUser" modelAttribute="client">
+     
+     	<div th:if="${error}" th:text="${error}" style="color: red;">
+     	${error}
+     	</div>
+        <label for="email">Email-Id:</label>
+        <input type="text" id="email" name="email" />
         <br/>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" />
