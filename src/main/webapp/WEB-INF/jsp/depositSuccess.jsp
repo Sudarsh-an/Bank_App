@@ -66,8 +66,13 @@
 
     <div class="container">
         <h1>Deposit Successful</h1> <br/>
+        
+        <a href="<c:url value='/withdraw/${account.account_id}' />">Withdraw</a><br>
+<a href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a> <br>
+<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a> <br>
 
- <a href="loginForm">Click here to login</a>
+
+
         
     </div>
 </body>
