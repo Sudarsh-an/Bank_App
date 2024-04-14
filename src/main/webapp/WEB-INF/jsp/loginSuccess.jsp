@@ -8,6 +8,9 @@ Account List : ${accountList }
 
 <h1>Hi ${client.getName()}, Login Success</h1>
 
+<p>Test: ${amount.getAccountId()}</p>
+<p>Test: ${amount.getBalance()}</p>
+
 <h1>Account Details: </h1>
 <table border="2" width="70%" cellpadding="2">
 	<tr>
