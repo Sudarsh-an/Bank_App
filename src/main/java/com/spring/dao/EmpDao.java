@@ -212,6 +212,53 @@ public class EmpDao {
 
 		
 		}
+
+	public Client getClientByClientId(int client_id) {
+		// TODO Auto-generated method stub
+		Client client = new Client();
+		try {
+		String sql = "select * from client where client_id = ?" ;
+		PreparedStatement ps = template.getDataSource().getConnection().prepareStatement(sql);
+		ps.setInt(1, client_id);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			System.out.println("Inside while of getClientByUserId ");
+			int clientId = rs.getInt("client_id");
+			System.out.println("clientId "+ clientId);
+			String name  = rs.getString("name");
+			System.out.println("name "+ name);
+			String contact = rs.getString("contact");
+			System.out.println("contact "+ contact);
+			String email = rs.getString("email");
+			String password = rs.getString("balance");
+			client = new Client(clientId, name,contact, email, password );
+			System.out.println("Client : " + client);
+		}
+		rs.close();
+		ps.close(); 
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			// Handle the exception as per your application's requirement	
+		}
+		return client;
 		
-	
+	}
+
+	public void withdrawMoney(Account acc, int finalBalance) {
+		// TODO Auto-generated method stub
+		try {
+			String sql = "Update  account set balance = ? where account_Id = ?";
+			PreparedStatement ps = template.getDataSource().getConnection().prepareStatement(sql);
+			ps.setInt(1, finalBalance);
+			ps.setInt(2, acc.getAccount_id());
+			ps.executeUpdate();
+	        System.out.println("Withdraw successful. Updated balance after withdrawal: " + finalBalance);
+	    } catch (SQLException e) {
+	        System.err.println("Error withdrawing money: " + e.getMessage());
+	    }
+
+
+	}
 }
+	
