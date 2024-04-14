@@ -78,8 +78,8 @@
                         <p class="form-text">Balance: ${account.balance}</p>
                         <div class="form-footer">
                             <a href="deposit/${account.account_id}">Deposit</a> 
-                            <a href="withdraw/${account.account_id}">Withdraw</a>
-                            <a href="sendMoney/${account.account_id}">Send Money</a> <br>
+                            <a href="withdraw/${account.account_id}">Withdraw</a> <br>
+                            <a href="sendMoney/${account.account_id}">Send Money</a>
                             <a href="transactionHistory/${account.getAccount_id()}">Transaction History</a>
                         </div>
                     </div>

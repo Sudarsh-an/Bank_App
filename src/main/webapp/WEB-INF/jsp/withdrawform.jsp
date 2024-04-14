@@ -97,9 +97,12 @@
 	<br />
 	<input type="submit" value="Withdraw" />
 </form:form> <br>
-                      <a href="withdraw/${account.account_id}">Withdraw</a> <br>
-                          
-                            <a href="transactionHistory/${account.getAccount_id()}">Transaction History</a>
+
+<a href="<c:url value='/deposit/${account.account_id}' />">Deposit</a> <br>
+<a href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a><br>
+<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a>
+
+                   
                   </div>
         </div>
     </div>

@@ -88,9 +88,13 @@
                     <input type="submit" value="Deposit" class="btn btn-primary" />
                 </div><br> <br>
                 <div>
-                  <a href="withdraw/${account.account_id}">Withdraw</a> <br>
-                            <a href="sendMoney/${account.account_id}">Send Money</a> <br>
-                            <a href="transactionHistory/${account.getAccount_id()}">Transaction History</a>
+        
+<a href="<c:url value='/withdraw/${account.account_id}' />">Withdraw</a><br>
+<a href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a> <br>
+<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a> <br>
+    
+                            
+
                   </div>
             </form:form>
         </div>

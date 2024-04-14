@@ -95,10 +95,11 @@
 		<input type="email" id="email" name="email" />
 		<br />
 		<br />
-		<input type="submit" value="Send" />
-		<div>
-           <a href="sendMoney/${account.account_id}">Send Money</a> <br>
-                            <a href="transactionHistory/${account.getAccount_id()}">Transaction History</a>
+		<input type="submit" value="Send" /> <br>
+		<div><br>
+         <a href="<c:url value='/deposit/${account.account_id}' />">Deposit</a> <br>
+<a href="<c:url value='/withdraw/${account.account_id}' />">Withdraw</a><br>
+<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a>
                   </div>
     </div>
 	</form:form>
