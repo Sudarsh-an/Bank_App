@@ -85,30 +85,30 @@
 <div class="container">
         <div class="form-container">
             <h2 class="text-center mb-4">Send Money</h2> <br>
-<h3>Your current balance is: ${account.balance}</h3>
+			<h3>Your current balance is: ${account.balance}</h3>
 	
-	<form:form method="post" action="send" modelAttribute="sendmoney">
-		<div th:if="${error}" th:text="${error}" style="color: red;">
-			${error}</div>
-		<br />
-		<input type="number" id="accountId" value=${account.account_id} name="accountId" hidden />
-		<label for="balance">Enter Amount to Send:</label>
-		<input type="number" id="amount" name="amount" />
-		<br />
-		<br />
-		
-		<label for="email">Enter Recipient Email:</label>
-		<input type="email" id="email" name="email" />
-		<br />
-		<br />
-		<input type="submit" value="Send" /> <br>
-		<div><br>
-         <a href="<c:url value='/deposit/${account.account_id}' />">Deposit</a> <br>
-<a href="<c:url value='/withdraw/${account.account_id}' />">Withdraw</a><br>
-<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a>
-                  </div>
-    </div>
-	</form:form>
+			<form:form method="post" action="send" modelAttribute="sendmoney">
+				<div th:if="${error}" th:text="${error}" style="color: red;">
+					${error}</div>
+				<br />
+				<input type="number" id="accountId" value=${account.account_id} name="accountId" hidden />
+				<label for="balance">Enter Amount to Send:</label>
+				<input type="number" id="amount" name="amount" />
+				<br />
+				<br />
+				
+				<label for="email">Enter Recipient Email:</label>
+				<input type="email" id="email" name="email" />
+				<br />
+				<br />
+				<input type="submit" value="Send" /> <br>
+				<div><br>
+		         	<a href="<c:url value='/deposit/${account.account_id}' />">Deposit</a> <br>
+					<a href="<c:url value='/withdraw/${account.account_id}' />">Withdraw</a><br>
+					<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a><br>
+					<a href="<c:url value='/loginSuccess?clientId=${account.client_id}' />">Back to Dashboard</a> <br> 
+		        </div>
+			</form:form>
         </div>
     </div>
    

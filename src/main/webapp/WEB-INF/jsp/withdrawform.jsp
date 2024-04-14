@@ -87,27 +87,27 @@
 			<h3>Your current balance is: ${account.balance}</h3>
           
             <small>Please enter amount less than the Balance remaining</small>
-<form:form method="post" action="withdrawMoney" modelAttribute="amount">
-	<div th:if="${error}" th:text="${error}" style="color: red;">
-     	${error}
-     	</div>
-	<br />
-	<input type="number" id="accountId" value=${account.account_id} name="accountId" hidden/>
-	<label for="balance">Enter Amount:</label>
-	<input type="number" id="balance" name="balance" />
-	<br />
-	<br />
-	<input type="submit" value="Withdraw" />
-</form:form> <br>
+			<form:form method="post" action="withdrawMoney" modelAttribute="amount">
+				<div th:if="${error}" th:text="${error}" style="color: red;">
+			     	${error}
+			     	</div>
+				<br />
+				<input type="number" id="accountId" value=${account.account_id} name="accountId" hidden/>
+				<label for="balance">Enter Amount:</label>
+				<input type="number" id="balance" name="balance" />
+				<br />
+				<br />
+				<input type="submit" value="Withdraw" />
+			</form:form> <br>
 
-<a href="<c:url value='/deposit/${account.account_id}' />">Deposit</a> <br>
-<a href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a><br>
-<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a>
+			<a href="<c:url value='/deposit/${account.account_id}' />">Deposit</a> <br>
+			<a href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a><br>
+			<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a><br>
+			<a href="<c:url value='/loginSuccess?clientId=${account.client_id}' />">Back to Dashboard</a> <br> 
 
                    
-                  </div>
         </div>
-    </div>
+     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

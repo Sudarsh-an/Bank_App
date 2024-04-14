@@ -71,15 +71,12 @@
 
     <div class="container">
         <h1>Deposit Successful</h1> 
-          <h5 class="form-title">Account Type: ${account.account_type}</h5><br>
-                   <h4 class="card-subtitle mb-3">Your Balance is: ${account.balance}</h4>
+        <h5 class="form-title">Account Type: ${account.account_type}</h5><br>
+		<h4 class="card-subtitle mb-3">Your Balance is: ${account.balance}</h4>
         <a href="<c:url value='/withdraw/${account.account_id}' />">Withdraw</a><br>
-<a href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a> <br>
-<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a> <br>
-
-
-
-        
+		<a href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a> <br>
+		<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a> <br>
+		<a href="<c:url value='/loginSuccess?clientId=${account.client_id}' />">Back to Dashboard</a> <br>     
     </div>
 </body>
 </html>

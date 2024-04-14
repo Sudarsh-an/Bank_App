@@ -36,9 +36,10 @@
                   <h5 class="form-title">Account Type: ${account.account_type}</h5><br>
                 <h4 class="card-subtitle mb-3">Your Balance is: ${account.balance}</h4>
             </div>
-                     <a href="<c:url value='/deposit/${account.account_id}' />">Deposit Money</a> <br>
-					<a href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a> <br>
-				<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a> <br>
+			<a href="<c:url value='/deposit/${account.account_id}' />">Deposit Money</a> <br>
+			<a href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a> <br>
+			<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a> <br>
+			<a href="<c:url value='/loginSuccess?clientId=${account.client_id}' />">Back to Dashboard</a> <br> 
         </div>
     </div>
 
