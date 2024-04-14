@@ -230,7 +230,9 @@ public class EmpDao {
 			String contact = rs.getString("contact");
 			System.out.println("contact "+ contact);
 			String email = rs.getString("email");
-			String password = rs.getString("balance");
+			System.out.println("email "+ email);
+			String password = rs.getString("password");
+			System.out.println("password "+ password);
 			client = new Client(clientId, name,contact, email, password );
 			System.out.println("Client : " + client);
 		}
