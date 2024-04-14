@@ -1,12 +1,12 @@
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>  
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transaction History</title>
+    <title>Deposit Money</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
@@ -21,57 +21,63 @@
             color: #ffffff;
         }
 
-        h1 {
-            text-align: center;
-            margin-top: 30px;
+        .form-container {
+            background-color: #ffffff;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 400px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
         }
 
-        table {
+        label {
+            font-weight: bold;
+        }
+
+        input[type="number"] {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
             padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
         }
 
-        th {
-            background-color: #343a40;
+        input[type="submit"] {
+            background-color: #007bff;
             color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
 
-        tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-
-        a {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
+        input[type="submit"]:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
-        <span class="navbar-brand">Banking Application</span>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="loginForm">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="registerForm">Register</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+    <span class="navbar-brand">Banking Application</span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/loginForm">Logout</a>
+            </li>
+            <!-- Add margin-right to create space -->
+            <li class="nav-item" style="margin-right: 10px;">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/registerForm">Register</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+ 
     
     <div class="container">
         <h1>Transaction List</h1>

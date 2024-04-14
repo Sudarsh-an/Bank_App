@@ -62,19 +62,25 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
-        <span class="navbar-brand">Banking Application</span>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                </li>
-            </ul>
-        </div>
-    </nav>
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+    <span class="navbar-brand">Banking Application</span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/loginForm">Logout</a>
+            </li>
+            <!-- Add margin-right to create space -->
+            <li class="nav-item" style="margin-right: 10px;">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/registerForm">Register</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+ 
 
 <div class="container">
         <div class="form-container">
@@ -95,10 +101,11 @@
 		<input type="email" id="email" name="email" />
 		<br />
 		<br />
-		<input type="submit" value="Send" />
-		<div>
-           <a href="sendMoney/${account.account_id}">Send Money</a> <br>
-                            <a href="transactionHistory/${account.getAccount_id()}">Transaction History</a>
+		<input type="submit" value="Send" /> <br>
+		<div><br>
+         <a href="<c:url value='/deposit/${account.account_id}' />">Deposit</a> <br>
+<a href="<c:url value='/withdraw/${account.account_id}' />">Withdraw</a><br>
+<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a>
                   </div>
     </div>
 	</form:form>

@@ -60,8 +60,8 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/pnidh/Downloads/Assignment5_Product/Assignment5_Product/target/classes/lib/mysql-connector-j-8.3.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pnidh/Downloads/apache-tomcat-9.0.87-windows-x64/apache-tomcat-9.0.87/lib/jsp-api.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pnidh/Downloads/apache-tomcat-9.0.87-windows-x64/apache-tomcat-9.0.87/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DP/Downloads/apache-tomcat-9.0.86/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DP/Downloads/apache-tomcat-9.0.86/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DP/Downloads/mysql-connector-j-8.3.0/mysql-connector-j-8.3.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
