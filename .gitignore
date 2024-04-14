@@ -2,5 +2,5 @@
 .project
 .settings/
 pom.xml
- src/
+
  target/
