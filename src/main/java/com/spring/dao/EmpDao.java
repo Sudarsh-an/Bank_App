@@ -260,5 +260,34 @@ public class EmpDao {
 
 
 	}
+
+	public Account getAccountByEmail(String email) {
+		// TODO Auto-generated method stub
+		Account account = new Account();
+		
+		try {
+			String sql = "select a.account_Id, a.account_type, a.client_id, a.balance "
+					+ "from account a inner join client c on a.client_id = c.client_id  "
+					+ "where c.email = ? and a.account_type = ? " ;
+			PreparedStatement ps = template.getDataSource().getConnection().prepareStatement(sql);
+			ps.setString(1, email);
+			ps.setString(2, "Saving");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				int account_id = rs.getInt("account_Id");
+				String account_type = rs.getString("account_type");
+				int client_id = rs.getInt("client_id");
+				int balance = rs.getInt("client_id");
+				account = new Account(account_id,account_type, client_id, balance );
+			}
+			rs.close();
+			ps.close(); 
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+				// Handle the exception as per your application's requirement	
+			}
+			return account;			
+	}
 }
 	

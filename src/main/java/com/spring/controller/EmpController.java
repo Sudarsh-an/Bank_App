@@ -21,6 +21,7 @@ import com.spring.beans.Login;
 import com.spring.beans.Transaction;
 import com.spring.beans.amount;
 import com.spring.dao.EmpDao;
+import com.spring.requestBeans.sendmoney;
 
 @Controller
 public class EmpController {
@@ -258,40 +259,40 @@ public class EmpController {
 	}
 
 	
-	// @RequestParam("balance") String balance, @RequestParam("account_id") String
-	// account_id, Model model
-	// @RequestParam("account_id") String account_id,
-//	 @PostMapping("/deposit/depositMoney/{balance}")
-//	    public String depositAmount(@RequestParam("balance") String balance,  Model model) {
-//	        try {
-//	            // Here, 'balance' is now an integer containing the value from the form field named "balance"
-//	            // You can perform your deposit logic here, such as updating a database or processing a transaction
-//	            // For this example, let's just print the amount to the console
-//	            int newBalance = Integer.parseInt(balance);
-//	           // int newAccountId = Integer.parseInt(account_id);
-//	            int finalBalance = 0;
-//	        	//Account acc = dao.getUserById(newAccountId);
-//	        	//model.addAttribute("account", acc);	
-//	            //finalBalance = acc.getBalance() + newBalance;
-//	        	
-//	            System.out.println("Deposit amount: " + newBalance);
-//	            //dao.depositMoney(acc,finalBalance);
-//	            // Add the amount to the model if needed for the view
-//	            model.addAttribute("depositAmount", newBalance);
-//	            
-//	            // Return the name of the view to render after processing the deposit
-//	            return "success"; // Assuming you have a success.jsp or success.html page
-//	        } catch (NumberFormatException e) {
-//	            // Handle the case where the input value is not a valid number
-//	            System.err.println("Invalid amount format: " + balance);
-//	            // Optionally, you can add an error message to the model and return to the form page
-//	            model.addAttribute("errorMessage", "Invalid amount format. Please enter a valid number.");
-//	            return "depositform"; // Return to the deposit form with an error message
-//	        }
-//	    }
-
-	// @PathVariable("balance") String balance, @PathVariable("account_id") String
-	// account_id, Model model
+	@RequestMapping(value = "/sendMoney/send", method = RequestMethod.POST)
+	public String sendMoney(@ModelAttribute sendmoney sendmoney, Model model) {
+		try {
+			Account to_acc = dao.getAccountByEmail(sendmoney.getEmail());
+			Account from_Account = dao.getUserById(sendmoney.getAccountId());
+			
+			
+			if( from_Account.getBalance() >= sendmoney.getAmount()) {
+				int to_acc_final_balance = to_acc.getBalance() + sendmoney.getAmount();
+				int from_acc_final_balance = from_Account.getBalance() - sendmoney.getAmount();
+				dao.depositMoney(to_acc, to_acc_final_balance);
+				dao.withdrawMoney(from_Account, from_acc_final_balance);
+				System.out.println("Transaction Successful from account_Id: " + from_Account.getAccount_id()
+				+ "to Account_id: " + to_acc.getAccount_id() + "Amount : " + sendmoney.getAmount());
+				model.addAttribute("from_Account", from_Account);
+				model.addAttribute("to_Account", to_acc);
+				return "transactionSuccess";
+			}
+			else {
+				model.addAttribute("error", "Account Balnce is less than Sending Amount, please enter an amount lesser than Current balance");
+				return "sendmoney";
+			}
+		}
+		catch (NumberFormatException e) {
+			// Handle the case where the input value is not a valid number
+			System.err.println("Invalid amount format: " + sendmoney.getAmount());
+			// Optionally, you can add an error message to the model and return to the form
+			// page
+			model.addAttribute("errorMessage", "Invalid amount format. Please enter a valid number.");
+			return "wirthdrawform"; // Return to the deposit form with an error message
+		}
+			
+		}
+	
 
 	@RequestMapping(value = "sendMoney/{account_id}", method = RequestMethod.GET)
 	public String sendMoney(@PathVariable int account_id, Model m) {
