@@ -1,11 +1,7 @@
 package com.spring.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 
 import com.spring.beans.Acc;
 import com.spring.beans.Account;
@@ -56,15 +51,18 @@ public class EmpController {
 
 	@RequestMapping("/loginForm")
 	public String showNewform(Model m) {
-		m.addAttribute("commandNew", new Login()); // addAttributes() method add values in the Model that'll be											// identified globally.
+		m.addAttribute("commandNew", new Login()); // addAttributes() method add values in the Model that'll be //
+													// identified globally.
 		return "login";
 	}
-	
+
 	@RequestMapping("/withdraw/loginForm")
 	public String showLoginform(Model m) {
-		m.addAttribute("commandNew", new Login()); // addAttributes() method add values in the Model that'll be											// identified globally.
+		m.addAttribute("commandNew", new Login()); // addAttributes() method add values in the Model that'll be //
+													// identified globally.
 		return "login";
 	}
+
 	@RequestMapping("/registerForm")
 	public String showRegisterform(Model m) {
 		// m.addAttribute("commandNew", new Account()); // addAttributes() method add
@@ -150,8 +148,9 @@ public class EmpController {
 		m.addAttribute("command", emp);
 		return "empeditform";
 	}
-	//depositSuccess/${account.account_id}
-	@RequestMapping(value="/deposit/depositSuccess/{account_id}")
+
+	// depositSuccess/${account.account_id}
+	@RequestMapping(value = "/deposit/depositSuccess/{account_id}")
 	public String depositSuccess(@PathVariable int account_id, Model m) {
 		Account acc = dao.getUserById(account_id);
 		Client client = dao.getClientByClientId(acc.getClient_id());
@@ -161,6 +160,7 @@ public class EmpController {
 		return "loginSuccess";
 
 	}
+
 //Deposit Function
 	@RequestMapping(value = "/deposit/{account_id}")
 	public String deposit(@PathVariable int account_id, Model m) {
@@ -168,7 +168,7 @@ public class EmpController {
 		m.addAttribute("account", acc);
 		return "depositform";
 	}
-	
+
 	@RequestMapping(value = "/withdraw/{account_id}")
 	public String withdraw(@PathVariable int account_id, Model m) {
 		Account acc = dao.getUserById(account_id);
@@ -237,8 +237,8 @@ public class EmpController {
 			// model.addAttribute("depositAmount", amount);
 
 			// Return the name of the view to render after processing the deposit
-			//redirectAttributes.addFlashAttribute("amount", amount);
-			 // Assuming you have a success.jsp or success.html page
+			// redirectAttributes.addFlashAttribute("amount", amount);
+			// Assuming you have a success.jsp or success.html page
 		} catch (NumberFormatException e) {
 			// Handle the case where the input value is not a valid number
 			System.err.println("Invalid amount format: " + amount.getBalance());
@@ -248,7 +248,7 @@ public class EmpController {
 			return "depositform"; // Return to the deposit form with an error message
 		}
 	}
-	
+
 	@RequestMapping(value = "/withdraw/withdrawMoney", method = RequestMethod.POST)
 	public String withdrawMoney(@ModelAttribute amount amount, Model model, RedirectAttributes redirectAttributes) {
 		try {
@@ -257,12 +257,12 @@ public class EmpController {
 
 			Account acc = dao.getUserById(amount.getAccountId());
 			model.addAttribute("account", acc);
-			if(amount.getBalance() > acc.getBalance()) {
-				model.addAttribute("error", "Balnce is less than Withdraw amount, please enter an amount lesse than Current balance");
+			if (amount.getBalance() > acc.getBalance()) {
+				model.addAttribute("error",
+						"Balnce is less than Withdraw amount, please enter an amount lesse than Current balance");
 				return "withdrawform";
-			}
-			else {
-				int finalBalance = (int) (acc.getBalance() - amount.getBalance() );
+			} else {
+				int finalBalance = (int) (acc.getBalance() - amount.getBalance());
 				System.out.println("Amount to withdraw: " + amount.getBalance());
 				System.out.println("Balance after withdrawal: " + finalBalance);
 				dao.withdrawMoney(acc, finalBalance);
@@ -270,7 +270,7 @@ public class EmpController {
 				model.addAttribute("account", acc);
 				return "withdrawsuccess";
 			}
-			
+
 		} catch (NumberFormatException e) {
 			// Handle the case where the input value is not a valid number
 			System.err.println("Invalid amount format: " + amount.getBalance());
@@ -281,7 +281,6 @@ public class EmpController {
 		}
 	}
 
-	
 	@RequestMapping(value = "/sendMoney/send", method = RequestMethod.POST)
 	public String sendMoney(@ModelAttribute sendmoney sendmoney, Model model) {
 		try {
@@ -334,7 +333,6 @@ public class EmpController {
 		}
 			
 		}
-	
 
 	@RequestMapping(value = "sendMoney/{account_id}", method = RequestMethod.GET)
 	public String sendMoney(@PathVariable int account_id, Model m) {
@@ -364,4 +362,51 @@ public class EmpController {
 		m.addAttribute("list", list);
 		return "transactionHistory";
 	}
+
+	@RequestMapping(value = "/payBills/{account_id}", method = RequestMethod.GET)
+	public String payBills(@PathVariable int account_id, Model m) {
+		Account acc = dao.getUserById(account_id);
+		m.addAttribute("account", acc);
+		return "payBills"; // Return the name of the pay bills form view
+	}
+
+	//pay bills
+	//payUtility
+	
+	@RequestMapping(value = "/payBills/payUtility", method = RequestMethod.POST)
+	public String billSuccess(@ModelAttribute com.spring.requestBeans.payBill payBill, Model model, RedirectAttributes redirectAttributes) {
+		try {
+			System.out.println("Withdraw Amount from User:  " + payBill.getAmount());
+			System.out.println("Account Id:  " + payBill.getAccount_Id());
+
+			Account acc = dao.getUserById(payBill.getAccount_Id());
+			System.out.println("Account details : " + acc);
+			model.addAttribute("account", acc);
+			if (payBill.getAmount() > acc.getBalance()) {
+				model.addAttribute("error",
+						"Balnce is less than Withdraw amount, please enter an amount lesse than Current balance");
+				return "payBills";
+			} else {
+				int finalBalance = (int) (acc.getBalance() - payBill.getAmount());
+				System.out.println("Amount to withdraw: " + payBill.getAmount());
+				System.out.println("Balance after withdrawal: " + finalBalance);
+				dao.withdrawMoney(acc, finalBalance);
+				acc.setBalance(finalBalance);
+				model.addAttribute("payBill", payBill);
+				model.addAttribute("account", acc);
+				return "billSuccess";
+			}
+
+		} catch (NumberFormatException e) {
+			// Handle the case where the input value is not a valid number
+			System.err.println("Invalid amount format: " + payBill.getAmount());
+			// Optionally, you can add an error message to the model and return to the form
+			// page
+			model.addAttribute("errorMessage", "Invalid amount format. Please enter a valid number.");
+			return "payBills"; // Return to the deposit form with an error message
+		}
+	}
 }
+
+
+

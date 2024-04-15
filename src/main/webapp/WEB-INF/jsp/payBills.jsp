@@ -1,5 +1,3 @@
-
-
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -8,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deposit Money</title>
+    <title>Pay Bills</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
@@ -37,7 +35,7 @@
             font-weight: bold;
         }
 
-        input[type="number"] {
+        input[type="number"], input[type="email"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
@@ -61,7 +59,7 @@
     </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
     <span class="navbar-brand">Banking Application</span>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -81,7 +79,6 @@
                   Account Actions
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                 
                   <a class="dropdown-item" href="<c:url value='/deposit/${account.account_id}' />">Deposit Money</a>
                   <a class="dropdown-item" href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a>
                   <a class="dropdown-item" href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a>
@@ -92,34 +89,55 @@
         </ul>
     </div>
 </nav>
- 
 
-    <div class="container">
-        <div class="form-container">
-            <h2 class="text-center mb-4">Withdraw Money</h2> <br>
-              <h4 class="text-center mb-4" class="form-title">Account Type: ${account.account_type}</h4> <br>
-			<h3>Your current balance is: ${account.balance}</h3>
-
-          
-            <small>Please enter amount less than the Balance remaining</small>
-			<form:form method="post" action="withdrawMoney" modelAttribute="amount">
-				<div th:if="${error}" th:text="${error}" style="color: red;">
-			     	${error}
-			     	</div>
-				<br />
-				<input type="number" id="accountId" value=${account.account_id} name="accountId" hidden/>
-				<label for="balance">Enter Amount:</label>
-				<input type="number" id="balance" name="balance" min="1"/>
-				<br />
-				<br />
-				<input type="submit" value="Withdraw" />
-			</form:form> <br>
-
+<div class="container">
+    <div class="form-container">
+        <h2 class="text-center mb-4">Pay Bills</h2>
+        <h4 class="text-center mb-4" class="form-title">Account Type: ${account.account_type}</h4>
+        <h3>Your current balance is: ${account.balance}</h3>
+        <small>Please enter an amount less than the remaining balance</small>
+	
+		<form:form method="post" action="payUtility" modelAttribute="sendmoney">
+	
+        <div th:if="${error}" th:text="${error}" style="color: red;">
+            ${error}
         </div>
-     </div>
+        <br />
+        <input type="number" id="accountId" value=${account.account_id} name="account_Id" hidden/>
+        <div>
+            <h4>Select Utility Bill to Pay:</h4>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="Electricity-Bill" id="electricityBill" name="paybill">
+                    <label class="form-check-label" for="electricityBill">
+                        Electricity Bill
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="Water-Bill" id="waterBill" name="paybill">
+                    <label class="form-check-label" for="waterBill">
+                        Water Bill
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" value="Gas-Bill" id="gasBill" name="paybill">
+                    <label class="form-check-label" for="gasBill">
+                        Gas Bill
+                    </label>
+                </div>
+                <br>
+                <label for="amount">Enter Amount:</label>
+                <input type="number" id="amount" name="amount" />
+                <br />
+                <br />
+                <input type="submit" value="Pay" />
+            </form:form>
+            <br>
+        </div>
+    </div>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

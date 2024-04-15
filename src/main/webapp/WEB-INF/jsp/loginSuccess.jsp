@@ -90,8 +90,9 @@
                             <a href="${pageContext.request.contextPath}/withdraw/${account.account_id}">Withdraw</a>
                             <a href="${pageContext.request.contextPath}/sendMoney/${account.account_id}">Send Money</a>
                             <a href="${pageContext.request.contextPath}/transactionHistory/${account.getAccount_id()}">Transaction History</a>
-                            <a href="${pageContext.request.contextPath}/sendMoneyBnAccounts/${account.getAccount_id()}">Transfer Funds</a>
-                            
+
+                            <a href="${pageContext.request.contextPath}/payBills/${account.getAccount_id()}">Pay Bills</a>
+
                         </div>
                     </div>
                 </div>
