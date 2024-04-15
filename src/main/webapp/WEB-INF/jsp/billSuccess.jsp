@@ -1,52 +1,14 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>  
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deposit Successful</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 32px;
-            margin-bottom: 20px;
-            color: #007bff;
-        }
-
-        p {
-            font-size: 18px;
-            color: #6c757d;
-        }
-
-        a {
-            color: #007bff;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        a:hover {
-            color: #0056b3;
-        }
-    </style>
+    <title>Payment Successful</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
  <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
@@ -69,11 +31,11 @@
                   Account Actions
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="<c:url value='/withdraw/${account.account_id}' />">Withdraw</a>
+                 <a class="dropdown-item" href="<c:url value='/deposit/${account.account_id}' />">Deposit Money</a>
                   <a class="dropdown-item" href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a>
                   <a class="dropdown-item" href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="<c:url value='/loginSuccess?clientId=${account.client_id}' />">Back to Dashboard</a>
+      
                 </div>
               </li>
         </ul>
@@ -82,13 +44,21 @@
  
 
     <div class="container">
-        <h1>Deposit Successful</h1> 
-        <h5 class="form-title">Account Type: ${account.account_type}</h5><br>
-		<h4 class="card-subtitle mb-3">Your Balance is: ${account.balance}</h4>
-        <a href="<c:url value='/withdraw/${account.account_id}' />">Withdraw</a><br>
-		<a href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a> <br>
-		<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a> <br>
-		<a href="<c:url value='/loginSuccess?clientId=${account.client_id}' />">Back to Dashboard</a> <br>     
+        <div class="card mx-auto" style="max-width: 500px;">
+            <div class="card-body">
+                <h2 class="card-title">Payment Successful</h2> <br>
+                  <h5 class="form-title">Account Type: ${account.account_type}</h5><br>
+                <h4 class="card-subtitle mb-3">Your Balance is: ${account.balance}</h4>
+                <a href="<c:url value='/loginSuccess?clientId=${account.client_id}' />">Back to Dashboard</a> <br> 
+            </div>
+		
+			
+        </div>
     </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

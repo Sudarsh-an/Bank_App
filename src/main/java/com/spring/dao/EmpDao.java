@@ -291,5 +291,23 @@ public class EmpDao {
 			}
 			return account;			
 	}
+
+
+
+public void billSuccess(Account acc, int finalBalance) {
+	// TODO Auto-generated method stub
+	try {
+		String sql = "Update  account set balance = ? where account_Id = ?";
+		PreparedStatement ps = template.getDataSource().getConnection().prepareStatement(sql);
+		ps.setInt(1, finalBalance);
+		ps.setInt(2, acc.getAccount_id());
+		ps.executeUpdate();
+        System.out.println("Payment successful. Updated balance payment: " + finalBalance);
+    } catch (SQLException e) {
+        System.err.println("Error withdrawing money: " + e.getMessage());
+    }
+
+
+}
 }
 	
