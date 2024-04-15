@@ -1,5 +1,7 @@
 package com.spring.controller;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -173,6 +175,18 @@ public class EmpController {
 		m.addAttribute("account", acc);
 		return "withdrawform";
 	}
+	
+	//sendMonetBnAccounts
+	@RequestMapping(value = "/sendMoneyBnAccounts/{account_id}")
+	public String transferFunds(@PathVariable int account_id, Model m) {
+		Account acc = dao.getUserById(account_id);
+		m.addAttribute("account", acc);
+		List<String> accountTypes= new ArrayList<String>();
+		accountTypes = dao.getAccountTypes(acc);
+		System.out.println("AccountTypes");
+		m.addAttribute("accountTypes", accountTypes);
+		return "transferFund";
+	}
 
 //	 @PostMapping("/depositMoney")
 //	    public String depositAmount(@RequestParam("amount") String amount, Model model) {
@@ -271,17 +285,36 @@ public class EmpController {
 	@RequestMapping(value = "/sendMoney/send", method = RequestMethod.POST)
 	public String sendMoney(@ModelAttribute sendmoney sendmoney, Model model) {
 		try {
+			System.out.println("Hello---------------");
 			Account to_acc = dao.getAccountByEmail(sendmoney.getEmail());
+			System.out.println("to_acc : " + to_acc);
 			Account from_Account = dao.getUserById(sendmoney.getAccountId());
+			System.out.println("from_acc : " + from_Account);
 			
 			
 			if( from_Account.getBalance() >= sendmoney.getAmount()) {
+				System.out.println("to_acc : " + to_acc);
+				System.out.println("from_acc : " + from_Account);
+				System.out.println("from_acc1111 : " + to_acc.getBalance());
+				System.out.println("from_acc : " + sendmoney.getAmount());
 				int to_acc_final_balance = to_acc.getBalance() + sendmoney.getAmount();
 				int from_acc_final_balance = from_Account.getBalance() - sendmoney.getAmount();
 				dao.depositMoney(to_acc, to_acc_final_balance);
 				dao.withdrawMoney(from_Account, from_acc_final_balance);
+				
+				// Log the transaction
+	            Transaction transaction = new Transaction();
+	            transaction.setFrom_account_id(from_Account.getAccount_id());
+	            transaction.setTo_account_id(to_acc.getAccount_id());
+	            transaction.setAmount(sendmoney.getAmount());
+	            transaction.setAccount_type(from_Account.getAccount_type());
+	            
+	            System.out.println("transaction-----" + transaction);
+	            dao.saveTransaction(transaction);
+	            
 				System.out.println("Transaction Successful from account_Id: " + from_Account.getAccount_id()
-				+ "to Account_id: " + to_acc.getAccount_id() + "Amount : " + sendmoney.getAmount());
+				+ " to Account_id: " + to_acc.getAccount_id() + " Amount : " + sendmoney.getAmount());
+				System.out.println("Final balance in reciepient is : " + to_acc.getBalance());
 				model.addAttribute("from_Account", from_Account);
 				model.addAttribute("to_Account", to_acc);
 				return "transactionSuccess";

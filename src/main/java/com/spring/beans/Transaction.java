@@ -11,17 +11,25 @@ public class Transaction {
 	private int to_account_id;
 
 	private int amount;
+	
+	private String account_type;
 
 	private Date date;
 
-	public Transaction(int transaction_id, int from_account_id, int to_account_id, int amount,
+	public Transaction(int transaction_id, int from_account_id, int to_account_id, int amount, String account_type,
 			Date date) {
 		super();
 		this.transaction_id = transaction_id;
 		this.from_account_id = from_account_id;
 		this.to_account_id = to_account_id;
 		this.amount = amount;
+		this.account_type = account_type;
 		this.date = date;
+	}
+
+	public Transaction() {
+		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	public int getTransaction_id() {
@@ -55,6 +63,14 @@ public class Transaction {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
+	
+	public String getAccount_type() {
+		return account_type;
+	}
+
+	public void setAccount_type(String account_type) {
+		this.account_type = account_type;
+	}
 
 	public Date getDate() {
 		return date;
@@ -67,7 +83,9 @@ public class Transaction {
 	@Override
 	public String toString() {
 		return "Transaction [transaction_id=" + transaction_id + ", from_account_id=" + from_account_id
-				+ ", to_account_id=" + to_account_id + ", amount=" + amount + ", date=" + date + "]";
+				+ ", to_account_id=" + to_account_id + ", amount=" + amount + ", account_type=" + account_type + ", date=" + date + "]";
 	}
+
+	
 
 }

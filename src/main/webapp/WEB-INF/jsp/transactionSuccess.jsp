@@ -1,98 +1,82 @@
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE htm
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LoginSuccess</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Deposit Successful</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <style>
-        .form-container {
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            transition: box-shadow 0.3s ease-in-out;
-            padding: 6.25rem;
-            margin-bottom: 1rem;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
         }
 
-        .form-container:hover {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
-        .form-title {
-            margin-bottom: 0.75rem;
-            font-size: 1.25rem;
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #007bff;
         }
 
-        .form-text {
-            margin-bottom: 0.5rem;
+        p {
+            font-size: 18px;
             color: #6c757d;
         }
 
-        .form-footer {
-            padding: 0.75rem 1.25rem;
-            background-color: #f8f9fa;
-            border-top: 1px solid #dee2e6;
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
-        }
-
-        .form-footer a {
-            margin-right: 0.5rem;
+        a {
             color: #007bff;
             text-decoration: none;
+            transition: color 0.3s;
         }
 
-        .form-footer a:hover {
+        a:hover {
             color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
-        <span class="navbar-brand">Banking Application</span>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" id="logout-btn" href="#">Logout</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+    <span class="navbar-brand">Banking Application</span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/loginForm">Logout</a>
+            </li>
+            <!-- Add margin-right to create space -->
+            <li class="nav-item" style="margin-right: 10px;">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/registerForm">Register</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+ 
 
     <div class="container">
-        <h1 class="text-center">Hi ${client.getName()}, Transaction Success</h1>
-
-        <div class="row justify-content-center">
-            <c:forEach var="account" items="${accountList}">
-                <div class="col-md-6 mb-3">
-                    <div class="form-container">
-                        <h5 class="form-title">Account Type: ${account.account_type}</h5>
-                        <p class="form-text">Account ID: ${account.account_id}</p>
-                        <p class="form-text">Balance: ${account.balance}</p>
-                        <div class="form-footer">
-                            <a href="deposit/${account.account_id}">Deposit</a> 
-                            <a href="withdraw/${account.account_id}">Withdraw</a>
-                            <a href="sendMoney/${account.account_id}">Send Money</a> <br>
-                            <a href="transactionHistory/${account.getAccount_id()}">Transaction History</a>
-                            <a href="<c:url value='/loginSuccess?clientId=${account.client_id}' />">Back to Dashboard</a> <br>
-                        </div>
-                    </div>
-                </div>
-            </c:forEach>
-        </div>
+        <h1>Transaction Successful</h1> 
+        <h5 class="form-title">Account Type: ${from_Account.account_type}</h5><br>
+		<h4 class="card-subtitle mb-3">Your Balance is: ${from_Account.balance}</h4>
+        <a href="<c:url value='/withdraw/${account.account_id}' />">Withdraw</a><br>
+		<a href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a> <br>
+		<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a> <br>
+		<a href="<c:url value='/loginSuccess?clientId=${account.client_id}' />">Back to Dashboard</a> <br>     
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

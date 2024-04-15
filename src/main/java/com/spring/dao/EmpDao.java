@@ -84,6 +84,22 @@ public class EmpDao {
 		return template.queryForObject(sql, new Object[] { account_id },
 				new BeanPropertyRowMapper<Account>(Account.class));
 	}
+	
+	public void saveTransaction(Transaction transaction) {
+        try {
+            String sql = "insert into transaction(from_account_id, to_account_id, amount, account_type) values("+ transaction.getFrom_account_id() + ", " + transaction.getTo_account_id() + ", " + transaction.getAmount() + ", '" + transaction.getAccount_type() + "')";
+            template.update(sql);
+
+        } catch (DataAccessException e) {
+	        // Handle database-related exceptions
+	        System.out.println("Error while processing database operation: " + e.getMessage());
+	        // You can log the exception or perform any other error handling logic here
+	    } catch (Exception e) {
+	        // Handle other exceptions
+	        System.out.println("Error: " + e.getMessage());
+	        // You can log the exception or perform any other error handling logic here
+	    }
+    }
 
 	public List<Transaction> getTransactionsById(int id) {
 		// TODO Auto-generated method stub
@@ -100,8 +116,9 @@ public class EmpDao {
 				int fromAccountId = rs.getInt("from_account_id");
 				int toAccountId = rs.getInt("to_account_id");
 				int amount = rs.getInt("amount");
+				String account_type = rs.getString("account_type");
 				java.sql.Date date = rs.getDate("date");
-				Transaction transaction = new Transaction(transactionId, fromAccountId, toAccountId, amount, date);
+				Transaction transaction = new Transaction(transactionId, fromAccountId, toAccountId, amount, account_type, date);
 				transactions.add(transaction);
 			}
 			rs.close();
@@ -166,9 +183,6 @@ public class EmpDao {
 
 		try {
 			String sql = "SELECT * FROM account WHERE client_id = ?";
-			System.out.println("1.getAccountsOfClient ");
-			System.out.println("2.getAccountsOfClient ");
-
 			PreparedStatement ps = template.getDataSource().getConnection().prepareStatement(sql);
 			ps.setInt(1, client.getClient_id());
 			ResultSet rs = ps.executeQuery();
@@ -207,10 +221,7 @@ public class EmpDao {
         System.out.println("Deposit successful. Updated balance: " + finalBalance);
     } catch (SQLException e) {
         System.err.println("Error depositing money: " + e.getMessage());
-    }
-
-
-		
+    }		
 		}
 
 	public Client getClientByClientId(int client_id) {
@@ -273,14 +284,15 @@ public class EmpDao {
 					+ "where c.email = ? and a.account_type = ? " ;
 			PreparedStatement ps = template.getDataSource().getConnection().prepareStatement(sql);
 			ps.setString(1, email);
-			ps.setString(2, "Saving");
+			ps.setString(2, "Savings");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				int account_id = rs.getInt("account_Id");
 				String account_type = rs.getString("account_type");
 				int client_id = rs.getInt("client_id");
-				int balance = rs.getInt("client_id");
+				int balance = rs.getInt("balance");
 				account = new Account(account_id,account_type, client_id, balance );
+				System.out.println("Account generatd from getAccountByEmail : " + account);
 			}
 			rs.close();
 			ps.close(); 
@@ -290,6 +302,32 @@ public class EmpDao {
 				// Handle the exception as per your application's requirement	
 			}
 			return account;			
+	}
+
+	public List<String> getAccountTypes(Account acc) {
+		// TODO Auto-generated method stub
+		List<String> accountTypes = new ArrayList<String>();
+		try {
+			String sql = "select account_type "
+					+ "from account"
+					+ "where client_id = ? and account_id != ? " ;
+			PreparedStatement ps = template.getDataSource().getConnection().prepareStatement(sql);
+			ps.setInt(1, acc.getClient_id());
+			ps.setInt(2, acc.getAccount_id());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				String account_type = rs.getString("account_type");
+				accountTypes.add(account_type);
+
+			}
+			rs.close();
+			ps.close(); 
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+			// Handle the exception as per your application's requirement	
+		}
+		return accountTypes;	
 	}
 }
 	
