@@ -103,7 +103,7 @@
             ${error}
         </div>
         <br />
-        <input type="number" id="accountId" value=${account.account_id} name="accountId" hidden/>
+        <input type="number" id="accountId" value=${account.account_id} name="account_Id" hidden/>
         <div>
             <h4>Select Utility Bill to Pay:</h4>
                 <div class="form-check">
@@ -127,9 +127,6 @@
                 <br>
                 <label for="amount">Enter Amount:</label>
                 <input type="number" id="amount" name="amount" />
-                <br />
-                <label for="payeeEmail">Payee Email ID:</label>
-                <input type="email" id="payeeEmail" name="payeeEmail" placeholder="Enter payee's email ID" />
                 <br />
                 <br />
                 <input type="submit" value="Pay" />

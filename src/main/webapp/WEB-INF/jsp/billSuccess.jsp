@@ -46,7 +46,7 @@
     <div class="container">
         <div class="card mx-auto" style="max-width: 500px;">
             <div class="card-body">
-                <h2 class="card-title">Payment Successful</h2> <br>
+                <h2 class="card-title">Payment Successful to ${payBill.paybill}</h2> <br>
                   <h5 class="form-title">Account Type: ${account.account_type}</h5><br>
                 <h4 class="card-subtitle mb-3">Your Balance is: ${account.balance}</h4>
                 <a href="<c:url value='/loginSuccess?clientId=${account.client_id}' />">Back to Dashboard</a> <br> 

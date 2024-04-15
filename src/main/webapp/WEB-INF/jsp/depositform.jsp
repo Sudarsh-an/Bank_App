@@ -95,13 +95,14 @@
         <div class="form-container">
             <h2 class="text-center mb-4">Deposit Money</h2> <br>
             <h3 class="text-center mb-4" class="form-title">Account Type: ${account.account_type}</h3> <br>
+            <h4 class="card-subtitle mb-3">Your Balance is: ${account.balance}</h4>
             
 
             <form:form method="post" action="depositMoney" modelAttribute="amount">
                 <input type="number" id="accountId" value="${account.account_id}" name="accountId" hidden/>
                 <div class="form-group">
                     <label for="balance">Enter Amount:</label>
-                    <input type="number" id="balance" name="balance" class="form-control" />
+                    <input type="number" id="balance" name="balance" class="form-control" min="1"/>
                 </div>
                 <div class="text-center">
                     <input type="submit" value="Deposit" class="btn btn-primary" />

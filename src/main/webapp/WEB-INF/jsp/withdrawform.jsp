@@ -109,7 +109,7 @@
 				<br />
 				<input type="number" id="accountId" value=${account.account_id} name="accountId" hidden/>
 				<label for="balance">Enter Amount:</label>
-				<input type="number" id="balance" name="balance" />
+				<input type="number" id="balance" name="balance" min="1"/>
 				<br />
 				<br />
 				<input type="submit" value="Withdraw" />

@@ -343,7 +343,7 @@ public class EmpController {
 	//pay bills
 	//payUtility
 	
-	@RequestMapping(value = "/payBills/billSuccess", method = RequestMethod.POST)
+	@RequestMapping(value = "/payBills/payUtility", method = RequestMethod.POST)
 	public String billSuccess(@ModelAttribute com.spring.requestBeans.payBill payBill, Model model, RedirectAttributes redirectAttributes) {
 		try {
 			System.out.println("Withdraw Amount from User:  " + payBill.getAmount());
@@ -352,23 +352,24 @@ public class EmpController {
 			Account acc = dao.getUserById(payBill.getAccount_Id());
 			System.out.println("Account details : " + acc);
 			model.addAttribute("account", acc);
-			if (amount.getBalance() > acc.getBalance()) {
+			if (payBill.getAmount() > acc.getBalance()) {
 				model.addAttribute("error",
 						"Balnce is less than Withdraw amount, please enter an amount lesse than Current balance");
 				return "payBills";
 			} else {
-				int finalBalance = (int) (acc.getBalance() - amount.getBalance());
-				System.out.println("Amount to withdraw: " + amount.getBalance());
+				int finalBalance = (int) (acc.getBalance() - payBill.getAmount());
+				System.out.println("Amount to withdraw: " + payBill.getAmount());
 				System.out.println("Balance after withdrawal: " + finalBalance);
 				dao.withdrawMoney(acc, finalBalance);
 				acc.setBalance(finalBalance);
+				model.addAttribute("payBill", payBill);
 				model.addAttribute("account", acc);
 				return "billSuccess";
 			}
 
 		} catch (NumberFormatException e) {
 			// Handle the case where the input value is not a valid number
-			System.err.println("Invalid amount format: " + amount.getBalance());
+			System.err.println("Invalid amount format: " + payBill.getAmount());
 			// Optionally, you can add an error message to the model and return to the form
 			// page
 			model.addAttribute("errorMessage", "Invalid amount format. Please enter a valid number.");
