@@ -61,7 +61,7 @@
     </style>
 </head>
 <body>
- <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
     <span class="navbar-brand">Banking Application</span>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -76,6 +76,19 @@
             <li class="nav-item" style="margin-right: 10px;">
                     <a class="nav-link" href="${pageContext.request.contextPath}/registerForm">Register</a>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Account Actions
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                 
+                  <a class="dropdown-item" href="<c:url value='/deposit/${account.account_id}' />">Deposit Money</a>
+                  <a class="dropdown-item" href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a>
+                  <a class="dropdown-item" href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="<c:url value='/loginSuccess?clientId=${account.client_id}' />">Back to Dashboard</a>
+                </div>
+              </li>
         </ul>
     </div>
 </nav>
@@ -84,7 +97,9 @@
     <div class="container">
         <div class="form-container">
             <h2 class="text-center mb-4">Withdraw Money</h2> <br>
+              <h4 class="text-center mb-4" class="form-title">Account Type: ${account.account_type}</h4> <br>
 			<h3>Your current balance is: ${account.balance}</h3>
+
           
             <small>Please enter amount less than the Balance remaining</small>
 			<form:form method="post" action="withdrawMoney" modelAttribute="amount">
@@ -100,12 +115,6 @@
 				<input type="submit" value="Withdraw" />
 			</form:form> <br>
 
-			<a href="<c:url value='/deposit/${account.account_id}' />">Deposit</a> <br>
-			<a href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a><br>
-			<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a><br>
-			<a href="<c:url value='/loginSuccess?clientId=${account.client_id}' />">Back to Dashboard</a> <br> 
-
-                   
         </div>
      </div>
 

@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deposit Money</title>
+    <title>Send Money</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
@@ -77,6 +77,18 @@
             <li class="nav-item" style="margin-right: 10px;">
                     <a class="nav-link" href="${pageContext.request.contextPath}/registerForm">Register</a>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Account Actions
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="<c:url value='/deposit/${account.account_id}' />">Deposit Money</a>
+                  <a class="dropdown-item" href="<c:url value='/withdraw/${account.account_id}' />">Withdraw Money</a>
+                  <a class="dropdown-item" href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="<c:url value='/loginSuccess?clientId=${account.client_id}' />">Back to Dashboard</a>
+                </div>
+              </li>
         </ul>
     </div>
 </nav>
@@ -102,12 +114,7 @@
 				<br />
 				<br />
 				<input type="submit" value="Send" /> <br>
-				<div><br>
-		         	<a href="<c:url value='/deposit/${account.account_id}' />">Deposit</a> <br>
-					<a href="<c:url value='/withdraw/${account.account_id}' />">Withdraw</a><br>
-					<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a><br>
-					<a href="<c:url value='/loginSuccess?clientId=${account.client_id}' />">Back to Dashboard</a> <br> 
-		        </div>
+				
 			</form:form>
         </div>
     </div>

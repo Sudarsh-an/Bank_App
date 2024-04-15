@@ -11,23 +11,37 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
-        <span class="navbar-brand">Banking Application</span>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+    <span class="navbar-brand">Banking Application</span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/loginForm">Logout</a>
+            </li>
+            <!-- Add margin-right to create space -->
+            <li class="nav-item" style="margin-right: 10px;">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/registerForm">Register</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Account Actions
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                 <a class="dropdown-item" href="<c:url value='/deposit/${account.account_id}' />">Deposit Money</a>
+                  <a class="dropdown-item" href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a>
+                  <a class="dropdown-item" href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a>
+                  <div class="dropdown-divider"></div>
       
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="loginForm">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="registerForm">Register</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+                </div>
+              </li>
+        </ul>
+    </div>
+</nav>
+ 
 
     <div class="container">
         <div class="card mx-auto" style="max-width: 500px;">
@@ -35,11 +49,10 @@
                 <h2 class="card-title">Withdraw Successful</h2> <br>
                   <h5 class="form-title">Account Type: ${account.account_type}</h5><br>
                 <h4 class="card-subtitle mb-3">Your Balance is: ${account.balance}</h4>
+                <a href="<c:url value='/loginSuccess?clientId=${account.client_id}' />">Back to Dashboard</a> <br> 
             </div>
-			<a href="<c:url value='/deposit/${account.account_id}' />">Deposit Money</a> <br>
-			<a href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a> <br>
-			<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a> <br>
-			<a href="<c:url value='/loginSuccess?clientId=${account.client_id}' />">Back to Dashboard</a> <br> 
+		
+			
         </div>
     </div>
 

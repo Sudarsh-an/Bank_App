@@ -74,6 +74,18 @@
             <li class="nav-item" style="margin-right: 10px;">
                     <a class="nav-link" href="${pageContext.request.contextPath}/registerForm">Register</a>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Account Actions
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="<c:url value='/withdraw/${account.account_id}' />">Withdraw</a>
+                  <a class="dropdown-item" href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a>
+                  <a class="dropdown-item" href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="<c:url value='/loginSuccess?clientId=${account.client_id}' />">Back to Dashboard</a>
+                </div>
+              </li>
         </ul>
     </div>
 </nav>
@@ -82,6 +94,8 @@
     <div class="container">
         <div class="form-container">
             <h2 class="text-center mb-4">Deposit Money</h2> <br>
+            <h3 class="text-center mb-4" class="form-title">Account Type: ${account.account_type}</h3> <br>
+            
 
             <form:form method="post" action="depositMoney" modelAttribute="amount">
                 <input type="number" id="accountId" value="${account.account_id}" name="accountId" hidden/>
@@ -92,13 +106,6 @@
                 <div class="text-center">
                     <input type="submit" value="Deposit" class="btn btn-primary" />
                 </div><br> <br>
-                <div>
-        
-					<a href="<c:url value='/withdraw/${account.account_id}' />">Withdraw</a><br>
-					<a href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a> <br>
-					<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a> <br>
-					<a href="<c:url value='/loginSuccess?clientId=${account.client_id}' />">Back to Dashboard</a> <br>        
-				</div>
             </form:form>
         </div>
     </div>
