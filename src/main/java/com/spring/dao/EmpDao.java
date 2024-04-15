@@ -9,12 +9,10 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
 import com.spring.beans.Acc;
 import com.spring.beans.Account;
 import com.spring.beans.Client;
-import com.spring.beans.Emp;
 import com.spring.beans.Login;
 import com.spring.beans.Transaction;
 
@@ -23,42 +21,6 @@ public class EmpDao {
 
 	public void setTemplate(JdbcTemplate template) {
 		this.template = template;
-	}
-
-//	public int save(Account acc) {
-//		String sql = "insert into account(account_id,name,contact,email) values(" + acc.getAccount_id() + ",'"
-//				+ acc.getName() + "'," + acc.getContact() + ",'" + acc.getEmail() + "')";
-//		return template.update(sql);
-//	}
-
-	public int update(Emp p) {
-		String sql = "update emp99 set name='" + p.getName() + "', salary=" + p.getSalary() + ",designation='"
-				+ p.getDesignation() + "' where id=" + p.getId() + "";
-		return template.update(sql);
-	}
-
-	public int delete(int id) {
-		String sql = "delete from emp99 where id=" + id + "";
-		return template.update(sql);
-	}
-
-	public Emp getEmpById(int id) {
-		String sql = "select * from emp99 where id=?";
-		System.out.println("Getting record....");
-		return template.queryForObject(sql, new Object[] { id }, new BeanPropertyRowMapper<Emp>(Emp.class));
-	}
-
-	public List<Emp> getEmployees() {
-		return template.query("select * from emp99", new RowMapper<Emp>() {
-			public Emp mapRow(ResultSet rs, int row) throws SQLException {
-				Emp e = new Emp();
-				e.setId(rs.getInt(1));
-				e.setName(rs.getString(2));
-				e.setSalary(rs.getFloat(3));
-				e.setDesignation(rs.getString(4));
-				return e;
-			}
-		});
 	}
 
 	public boolean validUser(Client client) {
