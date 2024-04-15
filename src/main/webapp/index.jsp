@@ -1,5 +1,3 @@
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,33 +6,112 @@
     <title>Homepage</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        .bank-info {
-            padding: 20px;
-            margin-bottom: 30px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            background-color: #f8f9fa;
-            text-align: center; /* Center align content */
+        /* Styles for the navbar */
+        .navbar {
+            background-color: #343a40; /* Set background color for the navbar */
         }
 
-        .bank-info h2 {
+        .navbar-brand {
+            color: #ffffff; /* Set text color for the navbar brand */
+        }
+
+        .navbar-nav .nav-link {
+            color: #ffffff !important; /* Set text color for the navbar links */
+        }
+
+        /* Styles for the form container */
+        .form-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            background-color: #4a5259; 
+            padding: 70px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-container h2 {
             margin-bottom: 20px;
-            color: #007bff;
+            color: #ffffff;
         }
 
-        .bank-info p {
-            line-height: 1.6;
-            margin-bottom: 15px;
-            text-align: justify; /* Justify text */
+        /* Styles for Matrix rain */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #b5b5b457;
+            color: rgb(11, 12, 6);
+            overflow: hidden; /* Prevents scrollbar from appearing */
         }
 
-        .bank-image {
-            max-width: 100%;
-            height: auto;
+        p {
+            display: block;
+             margin-block-start: 1em;
+             margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            unicode-bidi: isolate;
+            color: #ffffff; 
+        }
+
+        .matrix-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Positioned behind other content */
+        }
+
+        .matrix-column {
+            float: left;
+            width: 20px;
+            height: 100vh;
+            overflow: hidden;
+            font-size: 24px;
+            position: relative;
+        }
+
+        .matrix-char {
+            position: absolute;
+            top: -20px;
+            animation: fall 6s linear infinite, glow 1.5s infinite alternate; /* Increase animation duration */
+            color: rgba(237, 243, 213, 0.966); /* Set character color */
+        }
+
+        .matrix-char.small {
+            font-size: 18px;
+        }
+
+        .matrix-char.big {
+            font-size: 30px;
+        }
+
+        @keyframes fall {
+            to {
+                top: 100%;
+            }
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px green;
+            }
+            to {
+                text-shadow: 0 0 15px green, 0 0 20px green, 0 0 25px green;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Matrix rain container -->
+    <div class="matrix-container"></div>
+
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
         <span class="navbar-brand">Banking Application</span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,24 +130,50 @@
         </div>
     </nav>
 
-    <div class="container">
-        <div class="row justify-content-center"> <!-- Center align row content -->
-            <div class="col-md-6">
-                <div class="bank-info">
-                    <h2>About Our Bank</h2>
-                    <p>Welcome to our bank, where we are dedicated to providing exceptional financial services tailored to meet your needs. With a focus on customer satisfaction and innovation, we strive to be your trusted partner in achieving your financial goals.</p>
-                    <p>Our bank offers a wide range of products and services, including personal and business banking, investment management, loans, mortgages, and more. Whether you're saving for your future, managing your day-to-day finances, or planning for major life events, we have the expertise and resources to help you succeed.</p>
-                    <p>At our bank, we understand that every customer is unique, which is why we take the time to listen to your needs and provide personalized solutions that align with your financial objectives. Our team of experienced professionals is committed to delivering exceptional service and building long-lasting relationships based on trust and integrity.</p>
-                    <p>With a strong focus on technology and innovation, we continuously strive to enhance our services and improve your banking experience. Whether you prefer banking online, through our mobile app, or in person at one of our convenient branch locations, we offer flexible and convenient options to meet your needs.</p>
-                    <p>Thank you for choosing our bank as your financial partner. We look forward to serving you and helping you achieve your financial goals.</p>
-                </div>
-            </div>
-        </div>
+    <!-- Form container -->
+    <div class="form-container">
+        <h2>About Our Bank</h2>
+<p>Welcome to our bank, where we are dedicated to providing exceptional financial services tailored to meet your needs. With a focus on customer satisfaction and innovation, we strive to be your trusted partner in achieving your financial goals.</p>
+
+<p>At our bank, we understand that each customer is unique, with their own financial aspirations and challenges. That's why we offer a wide range of banking solutions designed to cater to individuals, families, and businesses alike.</p>
+
+<p>Thank you for choosing our bank as your financial partner. We look forward to helping you achieve your financial dreams and aspirations.</p>
+
+        
     </div>
 
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <!-- Matrix rain script -->
+    <script>
+        function createMatrixRain() {
+            const columns = Math.floor(window.innerWidth / 20);
+            const matrixContainer = document.querySelector('.matrix-container');
+
+            for (let i = 0; i < columns; i++) {
+                const column = document.createElement('div');
+                column.className = 'matrix-column';
+                matrixContainer.appendChild(column);
+            }
+
+            const characters = [' ', ' $',' '];
+            setInterval(() => {
+                const columns = document.querySelectorAll('.matrix-column');
+                columns.forEach(column => {
+                    const newChar = document.createElement('div');
+                    newChar.className = 'matrix-char' + (Math.random() > 0.7 ? ' small' : Math.random() > 0.7 ? ' big' : '');
+                    newChar.textContent = characters[Math.floor(Math.random() * characters.length)];
+                    column.appendChild(newChar);
+                    setTimeout(() => {
+                        column.removeChild(column.firstChild);
+                    }, Math.random() * 7000); /* Increase timeout for removing characters */
+                });
+            }, 200); /* Adjust interval for pouring */
+        }
+
+        window.onload = () => {
+            createMatrixRain();
+        };
+    </script>
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
