@@ -83,6 +83,7 @@
                             <a href="withdraw/${account.account_id}">Withdraw</a>
                             <a href="sendMoney/${account.account_id}">Send Money</a> <br>
                             <a href="transactionHistory/${account.getAccount_id()}">Transaction History</a>
+                            <a href="<c:url value='/loginSuccess?clientId=${account.client_id}' />">Back to Dashboard</a> <br>
                         </div>
                     </div>
                 </div>

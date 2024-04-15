@@ -94,13 +94,11 @@
                 </div><br> <br>
                 <div>
         
-<a href="<c:url value='/withdraw/${account.account_id}' />">Withdraw</a><br>
-<a href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a> <br>
-<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a> <br>
-    
-                            
-
-                  </div>
+					<a href="<c:url value='/withdraw/${account.account_id}' />">Withdraw</a><br>
+					<a href="<c:url value='/sendMoney/${account.account_id}' />">Send Money</a> <br>
+					<a href="<c:url value='/transactionHistory/${account.account_id}' />">Transaction History</a> <br>
+					<a href="<c:url value='/loginSuccess?clientId=${account.client_id}' />">Back to Dashboard</a> <br>        
+				</div>
             </form:form>
         </div>
     </div>

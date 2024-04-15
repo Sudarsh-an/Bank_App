@@ -58,12 +58,16 @@
         </button>
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" id="logout-btn" href="#">Logout</a>
-                </li>
-            </ul>
-        </div>
+	        <ul class="navbar-nav ml-auto">
+	            <li class="nav-item">
+	                <a class="nav-link" href="${pageContext.request.contextPath}/loginForm">Logout</a>
+	            </li>
+	            <!-- Add margin-right to create space -->
+	            <li class="nav-item" style="margin-right: 10px;">
+	                    <a class="nav-link" href="${pageContext.request.contextPath}/registerForm">Register</a>
+	            </li>
+	        </ul>
+    </div>
     </nav>
 
     <div class="container">

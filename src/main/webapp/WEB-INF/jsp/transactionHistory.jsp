@@ -100,7 +100,7 @@
                     </c:forEach>
                 </tbody>
             </table>
-        </div>
+        </div> 
         <a href="loginSuccess" class="btn btn-primary">Press here to go back</a>
     </div>
 

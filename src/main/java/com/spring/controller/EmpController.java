@@ -2,16 +2,19 @@ package com.spring.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import com.spring.beans.Acc;
 import com.spring.beans.Account;
@@ -40,7 +43,12 @@ public class EmpController {
 	}
 
 	@RequestMapping(value = "/loginSuccess", method = RequestMethod.GET)
-	public String loginSuccess() {
+	public String loginSuccess(@RequestParam("clientId") int clientId, Model m) {
+		Client cl = dao.getClientByClientId(clientId);
+		m.addAttribute("client", cl);
+		List<Account> accounts = dao.getAccountsOfClient(cl);
+		System.out.println("Account List from Controller validUser: " + accounts);
+		m.addAttribute("accountList", accounts);
 		return "loginSuccess";
 	}
 
@@ -76,6 +84,7 @@ public class EmpController {
 			m.addAttribute("accountList", accounts);
 			System.out.println("Client details before validation: " + cl);
 			if (dao.validUser(cl)) {
+				redirectAttributes.addAttribute("clientId", cl.getClient_id());
 				redirectAttributes.addFlashAttribute("client", cl);
 				redirectAttributes.addFlashAttribute("accountList", accounts);
 				return "redirect:/loginSuccess";
